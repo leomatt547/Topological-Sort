@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "graph.hpp": "c",
+        "ostream": "cpp"
+    }
+}
