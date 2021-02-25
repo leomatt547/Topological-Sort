@@ -2,6 +2,7 @@
 #include <fstream>
 #include <string>
 #include <vector>
+#include <map> 
 #include "Graph.hpp"
 
 using namespace std;
@@ -68,6 +69,23 @@ vector<string> bacaGraph(string &filePath, Graph * G) {
     return bahan;
 }  
 
+bool matkulfound (map<string,int> matkul, string target){
+    bool found = false;
+    int i = 0;
+    while(i<matkul.size() && !found){
+        if(matkul.at(target)==i){
+            found = true;
+        }
+    }
+    return found;
+}
+map<string, int> matkul (vector<string> senaraimatkul){
+    int indeks = 0;
+    for (int i=0; i<senaraimatkul.size() ; i++){
+        ////////
+    }
+}
+
 int main(int argc, char const *argv[])
 {
     Graph G;
@@ -76,5 +94,6 @@ int main(int argc, char const *argv[])
     for (int i=0; i<wow.size(); i++){
         cout << wow[i] << endl;
     }
+    
     return 0;
 }
