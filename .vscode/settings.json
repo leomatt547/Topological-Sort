@@ -1,6 +1,8 @@
 {
     "files.associations": {
         "graph.hpp": "c",
-        "ostream": "cpp"
+        "ostream": "cpp",
+        "iostream": "cpp",
+        "xstring": "cpp"
     }
 }

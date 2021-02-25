@@ -1,58 +1,80 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <vector>
 #include "Graph.hpp"
 
 using namespace std;
 
-Graph::Graph(int m, int n){
-    this->m = m;
-    this->n = n;
-}
-
-void Graph::read_graph(){
-    fstream file;
-	file.open("prereq.txt",ios::in); //open a file to perform read operation using file object
-    if (file.is_open()){ //checking whether the file is open
-        string tp;
-        while(getline(file, tp)){ //read data from file object and put it into string.
-            cout << tp << "\n"; //print the data of the string
+void makeGraph(int NB, int NK, Graph * G){
+    NBrsEff(*G)=NB;
+    NKolEff(*G)=NK;
+    indeks i,j;
+    for (i = BrsMin; i < NB; i++){
+        for (j = KolMin; j < NK; j++){
+            Elmt(*G, i, j) = 0;
         }
-        file.close(); //close the file object.
     }
 }
 
-void Graph::disp_graph(){
-	cout<<"Matrix Elements:";
-	for(int i=0;i<m;i++){
-	    for(int j=0;j<n;j++){
-		cout<<G[i][j]<<"  ";
-	    cout<<endl;
-	    }  
-    }
-}
+vector<string> bacaGraph(string &filePath, Graph * G) {
+    ifstream in(filePath);
+    char c;
+    vector<string> bahan;
 
-void Graph::set_graph(){
-	for(int i=0;i<m;i++){
-        for(int j=0;j<n;j++){
-                G[i][j]=0;
+    int jumlahkata = 0;
+    int i = 0;
+    if(in.is_open()) {
+        while(in.good()) {
+            string tp;
+            while(getline(in, tp)){  //read data from file object and put it into string.
+                string delimiter = ", ";
+                string titik = ".";
+                size_t pos = 0;
+                string token;
+                while ((pos = tp.find(delimiter)) != string::npos || (pos = tp.find(titik)) != string::npos) {
+                    token = tp.substr(0, pos);
+                    //cout << token << endl;
+                    bahan.push_back(token);
+                    if(tp.find(delimiter)){
+                        tp.erase(0, pos + delimiter.length());
+                    }else if (tp.find(titik)){
+                        tp.erase(0, pos + titik.length());
+                    }
+                }
+                bahan.push_back(tp);
             }
+            //in.get(c);
+            /*if(c==','){
+                bahan[jumlahkata][i] = '\0';
+                i = 0;
+                jumlahkata++;
+            }else if (c=='.'){
+                bahan[jumlahkata][i] = '?';
+                jumlahkata++;
+                i = 0;
+            }else{
+                bahan[jumlahkata][i] = c;
+                i++;
+            }*/
         }
     }
-		  
+
+    if(!in.eof() && in.fail())
+        cout << "error reading " << filePath << endl;
+
+    in.close();
+
+    return bahan;
+}  
 
 int main(int argc, char const *argv[])
 {
-    int m,n,p,q;
-    cout<<"enter first matrix size ?";
-    cin>>m>>n;
-    Graph m1(m,n);
-    m1.read_graph();
-    cout<<"enter second matrix size ?";
-    cin>>p>>q;
-    Graph m2(p,q);
-    m2.read_graph();;
-    m1.disp_graph();
-    m2.disp_graph();
+    Graph G;
+    string a = "prereq.txt";
+    vector<string> wow = bacaGraph(a, &G);
+    for (int i=0; i<wow.size(); i++){
+        cout << wow[i] << endl;
+    }
     return 0;
 }
