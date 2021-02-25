@@ -43,7 +43,7 @@ vector<string> bacaGraph(string &filePath, Graph * G) {
                         tp.erase(0, pos + titik.length());
                     }
                 }
-                bahan.push_back(tp);
+                bahan.push_back("\n");
             }
             //in.get(c);
             /*if(c==','){
@@ -80,20 +80,25 @@ bool matkulfound (map<string,int> matkul, string target){
     return found;
 }
 map<string, int> matkul (vector<string> senaraimatkul){
+    map<string, int> dict;
     int indeks = 0;
-    for (int i=0; i<senaraimatkul.size() ; i++){
-        ////////
+    for (int i=0; i<senaraimatkul.size(); i++){
+        if (!matkulfound(dict,senaraimatkul[i])){
+            dict.insert({senaraimatkul.at(i), indeks});
+            indeks++;
+        }
     }
+    return dict;
 }
 
-int main(int argc, char const *argv[])
-{
+int main(int argc, char const *argv[]){
     Graph G;
     string a = "prereq.txt";
     vector<string> wow = bacaGraph(a, &G);
     for (int i=0; i<wow.size(); i++){
-        cout << wow[i] << endl;
+        cout << wow[i];
     }
-    
+    map<string,int> mapnya = matkul(wow);
+    //cout << mapnya.at("C1") << endl;
     return 0;
 }

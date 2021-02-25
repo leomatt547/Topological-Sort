@@ -2,9 +2,10 @@
 #define GRAPH_HPP
 
 #include <iostream>
-#include <string>
-#include <string>
+#include <map>
+#include <fstream>
 #include <vector>
+#include <string>
 
 using namespace std;
 
@@ -28,5 +29,7 @@ typedef struct {
 void makeGraph (int NB, int NK, Graph * G); 
 bool isIdxValid (int i, int j);
 vector<string> bacaGraph(string &filePath, Graph * G);
+map<string, int> matkul (vector<string> * senaraimatkul);
+bool matkulfound (map<string,int> matkul, string target);
 
 #endif
