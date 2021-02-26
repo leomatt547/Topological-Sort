@@ -22,9 +22,9 @@ typedef struct {
 	int NKolEff; /* banyaknya/ukuran kolom yg terdefinisi */
 } Graph;
 
-#define NBrsEff(M) (M).NBrsEff
-#define NKolEff(M) (M).NKolEff
-#define Elmt(M,i,j) (M).Mem[(i)][(j)]
+#define NBrsEff(G) (G).NBrsEff
+#define NKolEff(G) (G).NKolEff
+#define Elmt(G,i,j) (G).Mem[(i)][(j)]
 
 void makeGraph (int NB, int NK, Graph * G); 
 void TulisGraph (Graph * G);
@@ -36,10 +36,11 @@ indeks GetLastIdxBrs (Graph G);
 /* Mengirimkan indeks baris terbesar M */
 indeks GetLastIdxKol (Graph G);
 /* Mengirimkan indeks kolom terbesar M */
+int GetnumberOfNodes(Graph G);
 bool isIdxValid (int i, int j);
 vector<string> bacaGraph(string &filePath, Graph * G);
 map<string, int> matkul (vector<string> * senaraimatkul);
 string key_matkulnya_apa (map<string, int> matakuliah, int valuenya);
-int getnumberofNodes(Graph * G);
+int GetnumberofNodes(Graph G);
 
 #endif

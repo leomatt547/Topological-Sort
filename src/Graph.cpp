@@ -74,6 +74,10 @@ indeks GetLastIdxKol (Graph G){
     return(NKolEff(G)-1+KolMin);
 }
 
+int GetnumberOfNodes(Graph G){
+    return NBrsEff(G) - BrsMin;
+}
+
 vector<string> bacaGraph(string &filePath, Graph * G) {
     ifstream in(filePath);
     char c;
@@ -132,25 +136,4 @@ string key_matkulnya_apa (map<string, int> matakuliah, int valuenya){
         }
     }
     return key;
-}
-
-
-int main(int argc, char const *argv[]){
-    Graph G;
-    string a = "prereq.txt";
-    vector<string> wow = bacaGraph(a, &G);
-    /*
-    for (int i=0; i<wow.size(); i++){
-        cout << wow[i];
-    }
-    */
-    map<string,int> mapnya = matkul(wow);
-    for(auto it = mapnya.cbegin(); it != mapnya.cend(); ++it)
-    {
-        cout << it->first << " " << it->second << endl;
-    }
-    makeGraph(&G, mapnya, wow);
-    TulisGraph(&G);
-    cout << endl;
-    return 0;
 }
