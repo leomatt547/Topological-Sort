@@ -27,9 +27,19 @@ typedef struct {
 #define Elmt(M,i,j) (M).Mem[(i)][(j)]
 
 void makeGraph (int NB, int NK, Graph * G); 
+void TulisGraph (Graph * G);
+indeks GetFirstIdxBrs (Graph G);
+/* Mengirimkan indeks baris terkecil M */
+indeks GetFirstIdxKol (Graph G);
+/* Mengirimkan indeks kolom terkecil M */
+indeks GetLastIdxBrs (Graph G);
+/* Mengirimkan indeks baris terbesar M */
+indeks GetLastIdxKol (Graph G);
+/* Mengirimkan indeks kolom terbesar M */
 bool isIdxValid (int i, int j);
 vector<string> bacaGraph(string &filePath, Graph * G);
 map<string, int> matkul (vector<string> * senaraimatkul);
-bool matkulfound (map<string,int> matkul, string target);
+string key_matkulnya_apa (map<string, int> matakuliah, int valuenya);
+int getnumberofNodes(Graph * G);
 
 #endif
