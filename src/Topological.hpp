@@ -17,4 +17,7 @@ void topsort(Toposort *T, Graph G);
 int dfs(int i, int j, int at,Toposort *T, Graph G);
 vector<vector<string>> terjemahkan_key (Toposort *T, map<string,int> matkul);
 void sikat (Toposort *T);
+void printSemester(vector<vector<string>> hasil);
+void show_Matkul_key(map<string,int> mapnya);
+
 #endif

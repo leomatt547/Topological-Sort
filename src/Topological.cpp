@@ -109,33 +109,48 @@ void sikat (Toposort *T){
 }
 vector<vector<string>> terjemahkan_key (Toposort *T, map<string,int> matkul){
     vector<vector<string>> hasil;
-    int gagal = 0;
-    int berhasil = 0;
-    sikat(T);
     for (int i= 0; i <= Ordering(*T).size()-1; i++){
         hasil.push_back(vector<string>());
-        //for (int j = Ordering(*T).at(i).size()-1; j >= 0; j--){
         for (int j = 0;  j <= Ordering(*T).at(i).size()-1; j++){
-            //cout << "bisa" << endl;
-            /*if(Ordering(*T).at(i).at(Ordering(*T).at(i).size()-1)==Nil){
-                //cout << "gagal ke i = " << i << endl;
-                hasil.pop_back();
-                gagal++;
-                break;
-            }*/
             if (Ordering(*T).at(i).at(j)==Nil){
-                hasil.at(hasil.size()-1).push_back(" ");
+                hasil.at(hasil.size()-1).push_back("");
             }else if (Ordering(*T).at(i).at(j)!=Nil){
-                //cout << "size ordering indeks ke =  " << hasil.size()-1 << endl;
                 hasil.at(hasil.size()-1).push_back(key_matkulnya_apa(matkul, Ordering(*T).at(i).at(j)));
-                //cout << "berhasil ke i = " << i << endl;
-                //cout << "berhasil indeks ke = " << berhasil << endl;
-                berhasil++;
             }
         }
     }
     return hasil;
 }
+
+void printSemester(vector<vector<string>> hasil){
+    if (hasil.size()>8){
+        cout << "Maaf, Penyusunan mata kuliah dibatasi hanya untuk 8 semester saja!" << endl;;
+        cout << "Silahkan kurangi matakuliah pada prereq.txt" << endl;
+    }
+    cout << "<<Saran Pengambilan Mata Kuliah>>" << endl;
+    for (int i=0; i< hasil.size(); i++){
+        cout << "Semester "<<i+1<< " : ";
+        for(int j=0; j < hasil.at(i).size()-1; j++){
+            if (j != hasil.at(i).size()-1 && hasil.at(i).at(j) != ""){
+                cout << hasil.at(i).at(j);
+                if(j != hasil.at(i).size()-1 && hasil.at(i).at(j+1) != ""){
+                    cout << ", ";
+                    if(j == hasil.at(i).size()-2){
+                        cout << hasil.at(i).at(j+1);
+                    }
+                }
+            }
+        }
+        cout << endl;
+    }
+}
+
+void show_Matkul_key(map<string,int> mapnya){
+    for(auto it = mapnya.cbegin(); it != mapnya.cend(); ++it){
+        cout << it->first << " " << it->second << endl;
+    }
+}
+
 int main(int argc, char const *argv[])
 {
     Graph G;
@@ -149,50 +164,13 @@ int main(int argc, char const *argv[])
     }
     */
     map<string,int> mapnya = matkul(wow);
-    for(auto it = mapnya.cbegin(); it != mapnya.cend(); ++it)
-    {
-        cout << it->first << " " << it->second << endl;
-    }
-    
     makeGraph(&G, mapnya, wow);
     //TulisGraph(&G);
     //cout << endl;
     //cout << GetnumberOfNodes(G) << endl;
     topsort(&T, G);
-    for (int i=0; i< GetnumberOfNodes(G); i++){
-        for (int j=0; j< GetnumberOfNodes(G); j++){
-            cout << Ordering(T).at(i).at(j) << " ";
-        }
-        cout << endl;
-    }
-    cout << endl;
-    /*
-    for (int i=0; i< GetnumberOfNodes(G); i++){
-        for (int j=0; j< GetnumberOfNodes(G); j++){
-            cout << Ordering(T).at(i).at(j) << " ";
-        }
-        cout << endl;
-    }*/
-    /*
-    for (int i=0; i< GetnumberOfNodes(G); i++){
-        cout << Ordering(T).at(i) << endl;
-    }
-    */
-   
+    sikat(&T);
     hasil = terjemahkan_key(&T, mapnya);
-    /*for (int i=0; i< hasil.size(); i++){
-        for (int j=0; j< hasil.at(i).size(); j++){
-            cout << hasil.at(i).at(j) << " ";
-        }
-        cout << endl;
-    }
-    */
-    for (int i=0; i< hasil.size(); i++){
-        cout << "Semester "<<i+1<< " : ";
-        for(int j=0; j < hasil.at(i).size(); j++){
-            cout << hasil.at(i).at(j) << " ";
-        }
-        cout << endl;
-    }
+    printSemester(hasil);
     return 0;
 }
