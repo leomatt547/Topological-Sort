@@ -6,6 +6,7 @@
         "xstring": "cpp",
         "vector": "cpp",
         "utility": "cpp",
-        "map": "cpp"
+        "map": "cpp",
+        "xstddef": "cpp"
     }
 }

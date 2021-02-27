@@ -11,10 +11,10 @@ typedef struct {
 
 #define Ordering(T) (T).ordering
 #define V(T) (T).V
-#define Nil 9999
+#define Nil 99
 
-void topsort(Toposort *T, Graph G);
-int dfs(int i, int j, int at,Toposort *T, Graph G);
+void topsort(Toposort *T, Graph *G);
+int dfs(int i, int j, int at,Toposort *T, Graph *G);
 vector<vector<string>> terjemahkan_key (Toposort *T, map<string,int> matkul);
 void sikat (Toposort *T);
 void printSemester(vector<vector<string>> hasil);

@@ -6,8 +6,8 @@
 
 using namespace std;
 
-void topsort(Toposort *T, Graph G){
-    int N = GetnumberOfNodes(G);
+void topsort(Toposort *T, Graph *G){
+    int N = GetnumberOfNodes(*G);
     //cout << GetnumberOfNodes(G) << endl;
     for (int a = 0; a<N ; a++){
         Ordering(*T).push_back(vector<int>());
@@ -17,7 +17,7 @@ void topsort(Toposort *T, Graph G){
         }
     }
     //cout << "size ordering " << Ordering(*T).size() << endl;
-    int i = 0;
+    int i = N - 1;
     int j = N - 1;
 
     for (int at = 0; at < N; at++){
@@ -31,29 +31,30 @@ void topsort(Toposort *T, Graph G){
             //cout << "V[at] = "<< V(*T).at(at) << endl;
             //cout << "bisa" << endl;
             i = dfs(i, j, at, T, G);
-            j -= 1;
-            i = 0;
+            //cout << "disini" << endl;
         }
+        j -= 1;
+        i = N-1;
     }
 }
 
-int dfs(int i, int j, int at,Toposort *T, Graph G){
+int dfs(int i, int j, int at,Toposort *T, Graph *G){
     V(*T).at(at) = true;
     //cout << "V["<< at << "] dfs = " << V(*T).at(at) << endl;
-    for (int b = 0; b < (Ordering(*T).size()); b++){
-        if (Elmt(G,at,b) == 1){
+    for (int b = 0; b < (V(*T).size()); b++){
+        if (Elmt(*G,at,b) == 1){
+        cout << "b nya adalah "<< b << endl;
             /*for (int k=0; k < Ordering(*T).size();k++){
                 cout << V(*T).at(k) << ", ";
             }
             cout<<endl;*/
             if(V(*T).at(b) == false){
                 i = dfs(i, j, b, T, G);
-                //cout << "b nya adalah "<< b << endl;
             }
         }
     }
     Ordering(*T).at(i).at(j) = at;
-    return i+1;
+    return i-1;
 }
 
 void sikat (Toposort *T){
@@ -61,7 +62,7 @@ void sikat (Toposort *T){
     vector<vector<int>> produk2;
     for (int i = Ordering(*T).size()-1; i >= 0 ; i--){
         produk.push_back(vector<int>());
-        if (Ordering(*T).at(i).at(Ordering(*T).size()-1)==Nil){
+        if (equal(Ordering(*T).at(i).begin() + 1, Ordering(*T).at(i).end(), Ordering(*T).at(i).begin())){
             produk.pop_back();
         }else{
             for (int j = Ordering(*T).size()-1; j >= 0; j--){
@@ -126,22 +127,23 @@ void printSemester(vector<vector<string>> hasil){
     if (hasil.size()>8){
         cout << "Maaf, Penyusunan mata kuliah dibatasi hanya untuk 8 semester saja!" << endl;;
         cout << "Silahkan kurangi matakuliah pada prereq.txt" << endl;
-    }
-    cout << "<<Saran Pengambilan Mata Kuliah>>" << endl;
-    for (int i=0; i< hasil.size(); i++){
-        cout << "Semester "<<i+1<< " : ";
-        for(int j=0; j < hasil.at(i).size()-1; j++){
-            if (j != hasil.at(i).size()-1 && hasil.at(i).at(j) != ""){
-                cout << hasil.at(i).at(j);
-                if(j != hasil.at(i).size()-1 && hasil.at(i).at(j+1) != ""){
-                    cout << ", ";
-                    if(j == hasil.at(i).size()-2){
-                        cout << hasil.at(i).at(j+1);
+    }else{
+        cout << "<<Saran Pengambilan Mata Kuliah>>" << endl;
+        for (int i=0; i< hasil.size(); i++){
+            cout << "Semester "<<i+1<< " : ";
+            for(int j=0; j < hasil.at(i).size()-1; j++){
+                if (j != hasil.at(i).size()-1 && hasil.at(i).at(j) != ""){
+                    cout << hasil.at(i).at(j);
+                    if(j != hasil.at(i).size()-1 && hasil.at(i).at(j+1) != ""){
+                        cout << ", ";
+                        if(j == hasil.at(i).size()-2){
+                            cout << hasil.at(i).at(j+1);
+                        }
                     }
                 }
             }
+            cout << endl;
         }
-        cout << endl;
     }
 }
 
@@ -165,12 +167,20 @@ int main(int argc, char const *argv[])
     */
     map<string,int> mapnya = matkul(wow);
     makeGraph(&G, mapnya, wow);
-    //TulisGraph(&G);
-    //cout << endl;
+    TulisGraph(&G);
+    cout << endl;
+    show_Matkul_key(mapnya);
     //cout << GetnumberOfNodes(G) << endl;
-    topsort(&T, G);
+    topsort(&T, &G);
     sikat(&T);
+    for (int i = 0; i < Ordering(T).size();i++){
+        for (int j = 0; j < Ordering(T).at(i).size();j++){
+            cout << Ordering(T).at(i).at(j) << " ";
+        }
+        cout << endl;
+    } 
     hasil = terjemahkan_key(&T, mapnya);
     printSemester(hasil);
+    
     return 0;
 }
