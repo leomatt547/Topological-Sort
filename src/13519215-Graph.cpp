@@ -1,9 +1,15 @@
+/*File Graph
+Nama : Leonard Matheus
+NIM : 13519215
+Kelas : K-04
+*/
+
 #include <iostream>
 #include <fstream>
 #include <string>
 #include <vector>
 #include <map> 
-#include "Graph.hpp"
+#include "13519215-Graph.hpp"
 
 using namespace std;
 
@@ -30,15 +36,6 @@ void makeGraph(Graph * G, map<string,int> list_matkul, vector<string> inputmatku
             valuekanan = list_matkul.at(kanan);
             Elmt(*G, valuekanan, valuekiri) = 1;
         }
-        /*
-        if(inputmatkul.at(k+1)!="\n" && inputmatkul.at(k)!="\n"){
-            kiri = inputmatkul.at(k); //cek string kiri
-            kanan = inputmatkul.at(k+1); //cek string kanan
-            valuekiri = list_matkul.at(kiri); 
-            valuekanan = list_matkul.at(kanan);
-            Elmt(*G, valuekanan, valuekiri) = 1;
-        }
-        */
     }
 }
 
@@ -57,19 +54,18 @@ void TulisGraph (Graph *G){
     }
 }
 
-/* *** Selektor: Untuk sebuah matriks M yang terdefinisi: *** */
 indeks GetFirstIdxBrs (Graph G){
     return (BrsMin);
 }
-/* Mengirimkan indeks baris terkecil M */
+
 indeks GetFirstIdxKol (Graph G){
     return (KolMin);
 }
-/* Mengirimkan indeks kolom terkecil M */
+
 indeks GetLastIdxBrs (Graph G){
     return(NBrsEff(G)-1+BrsMin);
 }
-/* Mengirimkan indeks baris terbesar M */
+
 indeks GetLastIdxKol (Graph G){
     return(NKolEff(G)-1+KolMin);
 }
