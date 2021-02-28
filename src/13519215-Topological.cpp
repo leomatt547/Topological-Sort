@@ -57,21 +57,12 @@ int dfs(int i, int j, int at,Toposort *T, Graph *G){
     return i-1;
 }
 
-bool cek_nil (vector<int> produk){
-    bool found = true;
-    int i = 0;
-    while (i < produk.size() && found){
-        if (produk.at(i) != Nil){
-            found = false;
-        }
-        i++;
-    }
-    return found;
-}
+//Merapihkan matriks vektor integer sehingga tidak ada mata kuliah yang tumpang tindih di semester lain
 void sikat (Toposort *T){
     vector<vector<int>> produk;
     vector<vector<int>> produk2;
     for (int i = Ordering(*T).size()-1; i >= 0 ; i--){
+        //Menyiapkan vektor integer baru untuk membalik segala matriks yang tadi diinput terbalik di topsort
         produk.push_back(vector<int>());
         if (cek_nil(Ordering(*T).at(i))){
             produk.pop_back();
@@ -82,6 +73,7 @@ void sikat (Toposort *T){
         }
     }
 
+    //Isi semua vektor produk2 dengan Nil
     for (int i = 0; i < produk.size();i++){
         produk2.push_back(vector<int>());
         for (int j = 0; j < produk.at(i).size();j++){
@@ -89,6 +81,7 @@ void sikat (Toposort *T){
         }
     }
 
+    //Mampatkan isi produk2 dengan produk (ditempel ke atas)
     for (int j = 0; j < produk.at(0).size();j++){
         int k = 0;
         for (int i = 0; i < produk.size();i++){
@@ -99,16 +92,21 @@ void sikat (Toposort *T){
         }
     }
 
+    //Ordering diset menjadi matriks vektor integer dari produk2
     Ordering(*T) = produk2;
 }
+
+//Mengubah integer menjadi string menurut map of pair(string, key) yang telah didefinisikan di awal
 vector<vector<string>> terjemahkan_key (Toposort *T, map<string,int> matkul){
     vector<vector<string>> hasil;
     for (int i= 0; i <= Ordering(*T).size()-1; i++){
         hasil.push_back(vector<string>());
         for (int j = 0;  j <= Ordering(*T).at(i).size()-1; j++){
             if (Ordering(*T).at(i).at(j)==Nil){
+                //bila bernilai Nil, masukkan spasi
                 hasil.at(hasil.size()-1).push_back("");
             }else if (Ordering(*T).at(i).at(j)!=Nil){
+                //Masukan hasil Ordering untuk dikonversi menjadi string matakuliah
                 hasil.at(hasil.size()-1).push_back(key_matkulnya_apa(matkul, Ordering(*T).at(i).at(j)));
             }
         }
@@ -116,11 +114,13 @@ vector<vector<string>> terjemahkan_key (Toposort *T, map<string,int> matkul){
     return hasil;
 }
 
+//Menampilkan Mata Kuliah yang disarankan di layar
 void printSemester(vector<vector<string>> hasil){
-    if (hasil.size()>8){
+    if (hasil.size()>8){ //Maksimal semester 8 ya
         cout << "Maaf, Penyusunan mata kuliah dibatasi hanya untuk 8 semester saja!" << endl;;
         cout << "Silahkan kurangi matakuliah pada prereq.txt" << endl;
     }else{
+        //Mekanisme print ke layar
         cout << "<<Saran Pengambilan Mata Kuliah>>" << endl;
         for (int i=0; i< hasil.size(); i++){
             cout << "Semester "<<i+1<< " : ";
@@ -138,8 +138,22 @@ void printSemester(vector<vector<string>> hasil){
     }
 }
 
+//Menunjukkan pasangan mata kuliah dengan representasi integer yang dimasukkan ke dalam suatu map
 void show_Matkul_key(map<string,int> mapnya){
     for(auto it = mapnya.cbegin(); it != mapnya.cend(); ++it){
         cout << it->first << " " << it->second << endl;
     }
+}
+
+//Mengecek apakah pada suatu baris/kolom terdapat nilai Nil semuanya secara simultan
+bool cek_nil (vector<int> produk){
+    bool found = true;
+    int i = 0;
+    while (i < produk.size() && found){
+        if (produk.at(i) != Nil){
+            found = false;
+        }
+        i++;
+    }
+    return found;
 }

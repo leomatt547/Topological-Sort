@@ -31,17 +31,25 @@ typedef struct {
 #define NKolEff(G) (G).NKolEff
 #define Elmt(G,i,j) (G).Mem[(i)][(j)]
 
-void makeGraph(Graph * G, map<string,int> list_matkul, vector<string> inputmatkul);
-void TulisGraph (Graph * G);
-indeks GetFirstIdxBrs (Graph G);
-indeks GetFirstIdxKol (Graph G);
-indeks GetLastIdxBrs (Graph G);
-indeks GetLastIdxKol (Graph G);
-int GetnumberOfNodes(Graph G);
-bool isIdxValid (int i, int j);
+//Membaca input file dan membuat vektor string untuk dibuatkan mapnya
 vector<string> bacaGraph(string &filePath, Graph * G);
+//Mengekstraksi list mata kuliah yang dibentuk menjadi matriks graph
+void makeGraph(Graph * G, map<string,int> list_matkul, vector<string> inputmatkul);
+//Menampilkan matriks graph ke layar
+void TulisGraph (Graph * G);
+//Getter Indeks Pertama Baris Matriks Adjacency List
+indeks GetFirstIdxBrs (Graph G);
+//Getter Indeks Pertama Kolom Matriks Adjacency List
+indeks GetFirstIdxKol (Graph G);
+//Getter Indeks Terakhir Baris Matriks Adjacency List
+indeks GetLastIdxBrs (Graph G);
+//Getter Indeks Terakhir Kolom Matriks Adjacency List
+indeks GetLastIdxKol (Graph G);
+//Getter jumlah node yang ada di graph
+int GetnumberOfNodes(Graph G);
+//Membuat map antara nama matkulnya
 map<string, int> matkul (vector<string> senaraimatkul);
+//Untuk mendapatkan key dari indeks integer matkul yang ditanya
 string key_matkulnya_apa (map<string, int> matakuliah, int valuenya);
-int GetnumberofNodes(Graph G);
 
 #endif
