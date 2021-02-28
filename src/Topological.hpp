@@ -19,5 +19,6 @@ vector<vector<string>> terjemahkan_key (Toposort *T, map<string,int> matkul);
 void sikat (Toposort *T);
 void printSemester(vector<vector<string>> hasil);
 void show_Matkul_key(map<string,int> mapnya);
+bool cek_nil (vector<int> produk);
 
 #endif

@@ -1,0 +1,10 @@
+Image_Processing, AI.
+AI, Logkom, Algeo, Grafika_Komputasi.
+Grafika_Komputasi, Algeo.
+BigData, MBD, Basdat.
+MBD, Basdat.
+Matematika.
+Basdat.
+Logkom, Matematika, Kalkulus.
+Algeo, Kalkulus, Matematika.
+Kalkulus, Matematika.
