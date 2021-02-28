@@ -1,5 +1,2 @@
-a.
 b, a.
-c, a.
-d, b, a, c.
-e, d, c, a.
+a.

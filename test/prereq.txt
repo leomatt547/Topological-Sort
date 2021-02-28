@@ -1,17 +1,10 @@
-C1.
-C2.
-C3.
-C4.
-C5.
-C6.
-C7.
-C8.
-C9.
-C10.
-C11.
-C12.
-C13.
-C14.
-C15.
-C16.
-C17.
+Image_Processing, AI.
+AI, Logkom, Algeo, Grafika_Komputasi.
+Grafika_Komputasi, Algeo.
+BigData, MBD, Basdat.
+MBD, Basdat.
+Matematika.
+Basdat.
+Logkom, Matematika, Kalkulus.
+Algeo, Kalkulus, Matematika.
+Kalkulus, Matematika.
